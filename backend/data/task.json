@@ -1,0 +1,23 @@
+[
+  {
+    "id": "f32b17ca-ea4d-48ca-8b95-211c6cc93f75",
+    "titulo": "Proyecto tasks",
+    "descripcion": "Terminar el proyecto tasks para la postulacion de la academia forit",
+    "completed": false,
+    "createdAt": "2025-07-29T11:59:25.986Z"
+  },
+  {
+    "id": "526c7d47-ab78-429a-a9a3-d8255a6d073c",
+    "titulo": "Actualizando tarea",
+    "descripcion": "Probando el metodo put para actualizar una tarea",
+    "createdAt": "2025-07-29T11:59:37.774Z",
+    "completed": "true"
+  },
+  {
+    "id": "6cb0a390-8a31-41bc-9659-61dbe9d70730",
+    "titulo": "Actualizando tarea",
+    "descripcion": "Probando el metodo put para actualizar una tarea",
+    "completed": false,
+    "createdAt": "2025-07-29T12:18:13.745Z"
+  }
+]
