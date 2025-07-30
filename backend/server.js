@@ -3,7 +3,7 @@ const app = express();
 
 app.use(express.json());
 
-const tareasRutas = require("./backend/routes/task.routes");
+const tareasRutas = require("./routes/task.routes");
 app.use("/api",tareasRutas);
 
 app.listen(1234);
