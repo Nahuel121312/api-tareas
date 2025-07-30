@@ -1,6 +1,6 @@
 import TaskItem  from "./TaskItem";
 
-function TaskList({tareas}){
+function TaskList({tareas, eliminarTarea, actualizarTarea}){
     if(!tareas || tareas.length === 0){
         return <p>No hay tareas aun.</p>
     }
@@ -8,7 +8,11 @@ function TaskList({tareas}){
     return (
         <ul>
             {tareas.map((tarea) =>(
-                <TaskItem key= {tarea.id} tarea = {tarea}/>
+                <TaskItem key= {tarea.id} 
+                tarea = {tarea} 
+                eliminarTarea={eliminarTarea}
+                actualizarTarea={actualizarTarea}
+                />
             ))}
         </ul>
     )
