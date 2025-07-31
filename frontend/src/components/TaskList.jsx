@@ -1,4 +1,5 @@
 import TaskItem  from "./TaskItem";
+import { Link } from "react-router-dom";
 
 function TaskList({tareas, eliminarTarea, actualizarTarea}){
     if(!tareas || tareas.length === 0){
@@ -8,11 +9,9 @@ function TaskList({tareas, eliminarTarea, actualizarTarea}){
     return (
         <ul>
             {tareas.map((tarea) =>(
-                <TaskItem key= {tarea.id} 
-                tarea = {tarea} 
-                eliminarTarea={eliminarTarea}
-                actualizarTarea={actualizarTarea}
-                />
+                <li key={tarea.id}>
+                    <Link to={`/task/${tarea.id}`}>{tarea.titulo}</Link>
+                </li>
             ))}
         </ul>
     )

@@ -1,29 +1,60 @@
-function TaskItem({tarea, eliminarTarea, actualizarTarea}){
-    let descripcionContenido = null;
-    if(tarea.descripcion){
-        descripcionContenido = <p>{tarea.descripcion}</p>
+import { useParams, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react";
+
+function TaskItem({tareas , eliminarTarea, actualizarTarea}){
+
+    const { id } = useParams()
+
+    const navigate = useNavigate()
+
+    //Buscar tarea por id
+    const tarea = tareas.find(t => t.id === id)
+
+    const [titulo, setTitulo] = useState("")
+    const [descripcion, setDescripcion] = useState("")
+
+    useEffect(() =>{
+        if(tarea) {
+            setTitulo(tarea.titulo)
+            setDescripcion(tarea.descripcion)
+        }
+    }, [tarea])
+
+    if(!tarea) return <p>Tarea no encontrada</p>
+
+    //Actualizar tarea y volver a la lista con navigate("/")
+    const handleActualizar = () =>{
+        const tareaActualizada = { ...tarea, titulo, descripcion }
+        actualizarTarea(tarea.id, tareaActualizada)
+        navigate("/")
     }
 
-    let estadoTexto = tarea.completed ? "Completada" : "Pendiente"
-    console.log("ID en taskItem: "+ tarea.id)
-
-    const handleCheckboxChange = () =>{
-        const tareaActualizada = { ...tarea, completed: !tarea.completed}
-        actualizarTarea(tarea.id, tareaActualizada)
+    //Eliminar tarea y volver a la lista con navigate("/")
+    const handleEliminar = () => {
+        eliminarTarea(tarea.id)
+        navigate("/")
     }
 
     return (
-        <li>
-            <input
-            type="checkbox"
-            checked={Boolean(tarea.completed)}
-            onChange={handleCheckboxChange}
+       <div>
+            <h2>Editar Tarea</h2>
+
+            <input 
+            value={titulo} 
+            onChange={e => setTitulo(e.target.value)} 
+            placeholder="Titulo"
             />
-            <strong>{tarea.titulo}</strong>
-            {descripcionContenido}
-            <p>Estado: {estadoTexto}</p>
-            <button onClick={()=> eliminarTarea(tarea.id)}>Eliminar</button>
-        </li>
+
+            <textarea 
+            value={descripcion} 
+            onChange={e => setDescripcion(e.target.value)} 
+            placeholder="Descripcion"
+            />
+
+            <button onClick={handleActualizar}>Actualizar</button>
+
+            <button onClick={handleEliminar}>Eliminar</button>
+       </div>
     )
 }
 

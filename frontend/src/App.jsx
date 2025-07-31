@@ -1,48 +1,40 @@
-import TaskForm from "./components/TaskForm"
-import { useState, useEffect } from "react";
-import TaskList from "./components/TaskList";
 import { BrowserRouter, Routes, Link, Route} from "react-router-dom";
+import { useState, useEffect } from "react";
+import TaskForm from "./components/TaskForm"
+import TaskList from "./components/TaskList";
+import TaskItem from "./components/TaskItem";
 
 function App() {
   const [tareas, setTareas] = useState([])
-  console.log(tareas)
 
-  //Get mostrar tareas
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  //Get cargar tareas desde el backend al iniciar
   useEffect(() => {
-    fetch("http://localhost:1234/api/tasks")
-    .then(res => {
-      if(!res.ok) throw new Error("Error en la respuesta del servidor") 
-      return res.json()
-    })
-      .then(data => setTareas(data))
-    .catch(error => console.error("Error al obtener tareas",error))
-  }, []);
+    fetch(`${apiUrl}/tasks`)
+    .then(res => res.json())
+    .then(data => setTareas(data))
+    .catch(error => console.error("Error al obtener tareas:", error))
+    
+  }, [apiUrl]);
 
-  //Metodo POST
+  //  Agregar una tarea
   const agregarTarea = (titulo, descripcion) => {
+    const nuevaTarea = { titulo, descripcion, completed: false}
+    console.log(nuevaTarea.id)
     fetch("http://localhost:1234/api/tasks", {
       method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({ titulo, descripcion, completed:false})
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(nuevaTarea)
     })
-    .then(res => {
-      if(!res.ok) throw new Error("Error en la respuesta del servidor")
-      return res.json()
-    })
-    .then(nuevaTarea => {
-      setTareas(prev => [...prev, nuevaTarea])
-    })
+    .then(res => res.json())
+    .then(tareaCreada => setTareas([...tareas, tareaCreada]))
     .catch(error => console.error("Error al crear tarea", error))
   }
 
-  //Metodo DELETE
+  //Eliminar tarea
   const eliminarTarea = (id) => {
-    console.log("Id en App"+id)
-    fetch(`http://localhost:1234/api/tasks/${id}`, {
-      method:"DELETE"
-    })
+    fetch(`http://localhost:1234/api/tasks/${id}`, { method:"DELETE" })
     .then(res =>{
       if(res.ok){
         setTareas(prev => prev.filter(t => t.id !== id))
@@ -52,19 +44,15 @@ function App() {
     })
     .catch(error => console.error("Error: ", error))
   }
-  //Metodo PUT
+
+  //Actualizar tarea
   const actualizarTarea = (id, tareaActualizada) =>{
     fetch(`http://localhost:1234/api/tasks/${id}`, {
       method:"PUT",
-      headers: {
-        "Content-Type":"application/json"
-      },
+      headers: { "Content-Type":"application/json" },
       body: JSON.stringify(tareaActualizada)
     })
-    .then(res => {
-      if(!res.ok) throw new Error("Error en la respuesta del servidor")
-      return res.json()
-    })
+    .then(res => res.json())
     .then(tareaModificada => {
       setTareas(prev => prev.map(t => (t.id === id ? tareaModificada : t)))
     })
@@ -73,21 +61,37 @@ function App() {
 
   return (
       <BrowserRouter>
+        
         <h1>Lista de Tareas</h1>
+        
         <nav>
-          <Link to="/">Inicio</Link> | <Link to="/new-task">Nueva Tarea</Link>
+          <Link to="/">Lista de Tareas</Link> |
+          <Link to="/TaskForm">Formulario Crear/Editar</Link>
         </nav>
+        
         <Routes>
+          {/* Lista de tareas*/}
           <Route path="/" element={
-            <TaskList
-            tareas={tareas}
+            <TaskList tareas={tareas} 
             eliminarTarea={eliminarTarea}
-            actualizarTarea={actualizarTarea} 
+            actualizarTarea={actualizarTarea}
             />
-            }
-            />
-          <Route path="/new-task" element={<TaskForm agregarTarea={agregarTarea} />}/>
+            }/>
+
+            {/* Crear nuvea tarea */}
+          <Route path="/TaskForm" element={<TaskForm agregarTarea={agregarTarea} />}
+          />
+
+          {/* Ver/Editar tarea individual*/}
+          
+          <Route path="/task/:id" element={<TaskItem 
+          tareas = {tareas}
+          eliminarTarea={eliminarTarea}
+          actualizarTarea={actualizarTarea}
+          />} />
+
         </Routes>
+
       </BrowserRouter>
 
   )
