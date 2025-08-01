@@ -66,7 +66,7 @@ function actualizar(id, nuevosDatos){
     }
 
     guardarTareas(tareas)
-    return true;
+    return tareas[index];
 }
 
 module.exports = {

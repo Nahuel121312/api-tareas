@@ -22,12 +22,13 @@ function TaskForm({agregarTarea}){
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="max-w-md mx-auto mt-8 p-6 bg-gray-800 text-white rounded shadow flex flex-col gap-4" onSubmit={handleSubmit}>
             <input 
             type="text" 
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
             placeholder="Escribe una tarea" 
+            className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-blue-400"
             />
 
             <input 
@@ -35,9 +36,11 @@ function TaskForm({agregarTarea}){
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
             placeholder="Descripcion"
+            className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-blue-400"
             />
 
-            <button type="submit">Agregar</button>
+            <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+             type="submit">Agregar</button>
         </form>
     )
 }

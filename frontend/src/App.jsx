@@ -60,38 +60,39 @@ function App() {
   }
 
   return (
-      <BrowserRouter>
-        
-        <h1>Lista de Tareas</h1>
-        
-        <nav>
-          <Link to="/">Lista de Tareas</Link> |
-          <Link to="/TaskForm">Formulario Crear/Editar</Link>
-        </nav>
-        
-        <Routes>
-          {/* Lista de tareas*/}
-          <Route path="/" element={
-            <TaskList tareas={tareas} 
-            eliminarTarea={eliminarTarea}
-            actualizarTarea={actualizarTarea}
-            />
-            }/>
-
-            {/* Crear nuvea tarea */}
-          <Route path="/TaskForm" element={<TaskForm agregarTarea={agregarTarea} />}
-          />
-
-          {/* Ver/Editar tarea individual*/}
+        <BrowserRouter>
+          <header className="bg-white border-b-2 border-gray-300">
+            <div className="max-w-5xl mx-auto flex justify-between items-center px-6 py-4">
+              <h1 className="text-3xl font-bold text-gray-800">Lista de tareas</h1>
+              <nav className="flex gap-4 text-lg text-gray-700">
+                <Link className="px-3 py-1 border-r-2 border-gray-300 hover:text-black transition" to="/">Tareas</Link>
+                <Link className="px-3 py-1 hover:text-black transition" to="/taskForm">Formulario</Link>
+              </nav>
+            </div>      
+          </header>
           
-          <Route path="/task/:id" element={<TaskItem 
-          tareas = {tareas}
-          eliminarTarea={eliminarTarea}
-          actualizarTarea={actualizarTarea}
-          />} />
+            <Routes>
+              {/* Lista de tareas*/}
+              <Route path="/" element={
+                <TaskList tareas={tareas} 
+                eliminarTarea={eliminarTarea}
+                actualizarTarea={actualizarTarea}
+                />
+                }/>
 
-        </Routes>
+                {/* Crear nuvea tarea */}
+              <Route path="/taskForm" element={<TaskForm agregarTarea={agregarTarea} />}
+              />
 
+              {/* Ver/Editar tarea individual*/}
+              
+              <Route path="/task/:id" element={<TaskItem 
+              tareas = {tareas}
+              eliminarTarea={eliminarTarea}
+              actualizarTarea={actualizarTarea}
+              />} />
+          
+            </Routes>
       </BrowserRouter>
 
   )

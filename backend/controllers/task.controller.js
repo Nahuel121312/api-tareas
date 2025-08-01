@@ -48,7 +48,7 @@ const actualizarTareaPorId = (req, res) => {
     if(!actualizado){
         return res.status(404).json({error: "Tarea no encontrada"})
     }
-    res.json({mensaje: "Tarea actualizada correctamente"})
+    res.json(actualizado)
 }
 
 module.exports = {
