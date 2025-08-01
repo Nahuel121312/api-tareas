@@ -12,8 +12,13 @@ function TaskForm({agregarTarea}){
 
         //Validacion de titulo
         if(titulo.trim() ==="")return;
+        const nuevaTarea = {
+            titulo,
+            descripcion,
+            completed: false,
+        }
 
-        agregarTarea(titulo, descripcion)
+        agregarTarea(nuevaTarea)
 
         setTitulo("")
         setDescripcion("")

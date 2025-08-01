@@ -10,7 +10,7 @@ class Tarea {
         this.titulo = titulo            //Titulo de la tarea
         this.descripcion = descripcion  //Descripcion de la tarea
         this.completed = false          //Estado: false por defecto
-        this.createdAt = new Date()     //Fecha de creacion
+        this.date = new Date().toISOString()     //Fecha de creacion
     }
 }
 

@@ -11,5 +11,6 @@ app.use("/api",tareasRutas)
 
 const port = process.env.PORT || 1234
 
-app.listen(1234);
-console.log(`Server on port ${1234}`)
+app.listen(port, ()=>{
+    console.log(`Servidor corriendo en el puerto ${port}`)
+});
