@@ -61,7 +61,7 @@ function TaskItem({tareas , eliminarTarea, actualizarTarea}){
             <div className="flex justify-between">
                 <button 
                 onClick={handleActualizar}
-                className="bg-blue-500 hover:bg-blue-600 text-whote px-4 py-2 rounded"
+                className="bg-blue-600 hover:bg-blue-500 text-whote px-4 py-2 rounded"
                 >
                 Actualizar
                 </button>

@@ -19,7 +19,8 @@ function App() {
 
   //  Agregar una tarea
   const agregarTarea = (nuevaTarea) => {
-    fetch("http://localhost:1234/api/tasks", {
+
+    fetch(`${apiUrl}/tasks`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(nuevaTarea),
@@ -31,7 +32,7 @@ function App() {
 
   //Eliminar tarea
   const eliminarTarea = (id) => {
-    fetch(`http://localhost:1234/api/tasks/${id}`, { method: "DELETE" })
+    fetch(`${apiUrl}${id}`, { method: "DELETE" })
       .then((res) => {
         if (res.ok) {
           setTareas((prev) => prev.filter((t) => t.id !== id));
@@ -44,7 +45,7 @@ function App() {
 
   //Actualizar tarea
   const actualizarTarea = (id, tareaActualizada) => {
-    fetch(`http://localhost:1234/api/tasks/${id}`, {
+    fetch(`${apiUrl}${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(tareaActualizada),

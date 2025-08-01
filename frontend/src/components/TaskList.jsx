@@ -61,7 +61,7 @@ function TaskList({ tareas }) {
                 to={`/task/${tarea.id}`}
                 className="text-blue-300 underline text-sm"
               >
-                Editar
+                <button className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded">Editar</button>
               </Link>
             </li>
           ))}
